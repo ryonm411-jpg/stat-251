@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midterm Diagnostic</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+<nav class="crumbs">STAT 251 midterm · Lesson 0001 · <a href="../reference/formula-sheet.html">Formula sheet</a></nav>
+
+<h1>Where are you losing marks?</h1>
+<p class="subtitle">A 30-minute diagnostic covering everything on the October 30 midterm</p>
+
+<p>You have one week. The worst way to spend it is rereading the chapters you already know. This quiz finds the topics where you lose marks, so the next six lessons go to those topics.</p>
+
+<div class="callout">
+<p><strong>How to take it, so the results mean something:</strong></p>
+<p>Use paper, a pen and your calculator. Don't look at notes or the formula sheet. That's harder than the exam, where you'll have your cheat sheet, and it's meant to be: recalling a formula from memory is what makes it stick (<a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x">Roediger &amp; Karpicke, 2006</a>).</p>
+<p>Your <strong>first</strong> answer is the one that counts. If you have no idea, guess, then read the worked solution. A wrong answer here costs you nothing and still tells us something useful.</p>
+<p>Round probabilities to 4 decimals. Fractions like <code>4/7</code> and percentages work too.</p>
+</div>
+
+<details class="ztable no-print" data-ztable><summary>Show the z-table (the exam provides one like it)</summary></details>
+
+<!-- ───────────── Descriptive ───────────── -->
+<section class="q" data-topic="Descriptive">
+  <div class="q-prompt">The scores on an exam have mean 64 and median 71. Which shape best describes the distribution?</div>
+  <ol class="q-opts">
+    <li data-correct>Left-skewed: long tail toward low scores</li>
+    <li>Right-skewed: long tail toward high scores</li>
+    <li>Symmetric: matching tails toward both ends</li>
+    <li>Uniform: flat with no tail visible</li>
+  </ol>
+  <div class="q-solution">
+    <p>The mean gets pulled toward the long tail and the median doesn't. Mean &lt; median means the tail points <em>down</em>, so the distribution is left-skewed.</p>
+    <p class="trap">Trap: "skewed left" names the side the <em>tail</em> is on, not the side the peak is on. On the exam this is practice set 1 Q1(iii), turned around.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Descriptive">
+  <div class="q-prompt">A data set has SD = 10 and IQR = 14. Every value is transformed by <code>new = 1.2 × old + 5</code>. What are the new SD and IQR?</div>
+  <ol class="q-opts">
+    <li>SD = 17, IQR = 21.8</li>
+    <li data-correct>SD = 12, IQR = 16.8</li>
+    <li>SD = 15, IQR = 19.0</li>
+    <li>SD = 12, IQR = 21.8</li>
+  </ol>
+  <div class="q-solution">
+    <p>Adding a constant shifts every value, so it changes centres (mean, median, quartiles) but leaves spread alone. Multiplying by <i>b</i> multiplies every spread measure by |<i>b</i>|.</p>
+    <p>SD = 1.2 × 10 = 12 and IQR = 1.2 × 14 = 16.8. The "+5" has no effect on either.</p>
+    <p class="trap">Trap: the variance would change by 1.2² = 1.44, but the SD only changes by 1.2.</p>
+  </div>
+</section>
+
+<!-- ───────────── Probability ───────────── -->
+<section class="q" data-topic="Probability">
+  <div class="q-prompt">P(A) = 0.5, P(B) = 0.4 and P(A ∪ B) = 0.7. A and B are:</div>
+  <ol class="q-opts">
+    <li>Mutually exclusive, but not independent</li>
+    <li data-correct>Independent, but not mutually exclusive</li>
+    <li>Both independent and mutually exclusive</li>
+    <li>Neither independent nor mutually exclusive</li>
+  </ol>
+  <div class="q-solution">
+    <p>Start with the addition rule: P(A ∩ B) = 0.5 + 0.4 − 0.7 = 0.2.</p>
+    <p>Since 0.2 ≠ 0, A and B are <strong>not</strong> mutually exclusive. Since P(A)P(B) = 0.5 × 0.4 = 0.2 = P(A ∩ B), they <strong>are</strong> independent.</p>
+    <p class="trap">Trap: two disjoint events that each have positive probability can never be independent. If one happens, the other can't.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Probability">
+  <div class="q-prompt">A factory buys a part from three suppliers. 50% of parts come from S1, 30% from S2 and 20% from S3. Their defect rates are 2%, 4% and 10%. What is the probability that a randomly chosen part is defective?</div>
+  <div class="q-num" data-answer="0.042" data-tol="0.0005"></div>
+  <div class="q-solution">
+    <p>Use the law of total probability: P(D) = Σ P(D | S<sub>i</sub>) P(S<sub>i</sub>)</p>
+    <p>= 0.02(0.5) + 0.04(0.3) + 0.10(0.2) = 0.010 + 0.012 + 0.020 = <strong>0.042</strong></p>
+    <p>This is the same structure as practice set 2, Q3(a).</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Probability">
+  <div class="q-prompt">Same factory. A part turns out to be defective. What is the probability that it came from S3?</div>
+  <div class="q-num" data-answer="0.47619" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>Use Bayes' rule: P(S3 | D) = P(D | S3) P(S3) / P(D) = 0.020 / 0.042 = <strong>0.4762</strong></p>
+    <p>S3 supplies only 20% of parts but produces almost half of the defects. That kind of reversal is why Bayes questions get asked.</p>
+    <p class="trap">Trap: the numerator is one term from the total-probability sum, not P(D | S3) by itself.</p>
+  </div>
+</section>
+
+<!-- ───────────── Discrete RVs ───────────── -->
+<section class="q" data-topic="Discrete RVs">
+  <div class="q-prompt">X has this pmf:
+    <table><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><th>P(X = x)</th><td>0.1</td><td>0.3</td><td>0.4</td><td>0.2</td></tr></table>
+    Find P(X ≥ 2 | X ≥ 1).</div>
+  <div class="q-num" data-answer="0.66667" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>P(X ≥ 2 | X ≥ 1) = P(X ≥ 2 and X ≥ 1) / P(X ≥ 1) = P(X ≥ 2) / P(X ≥ 1)</p>
+    <p>= (0.4 + 0.2) / (0.3 + 0.4 + 0.2) = 0.6 / 0.9 = <strong>0.6667</strong></p>
+    <p>Practice set 2, Q1(d) has the same shape.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Discrete RVs">
+  <div class="q-prompt">Same X as the previous question. Find Var(X).</div>
+  <div class="q-num" data-answer="0.81" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>E(X) = 0(0.1) + 1(0.3) + 2(0.4) + 3(0.2) = 1.7</p>
+    <p>E(X²) = 0(0.1) + 1(0.3) + 4(0.4) + 9(0.2) = 3.7</p>
+    <p>Var(X) = E(X²) − [E(X)]² = 3.7 − 2.89 = <strong>0.81</strong></p>
+    <p class="trap">Trap: [E(X)]² is not E(X²). You square the mean <em>after</em> you compute it.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Discrete RVs">
+  <div class="q-prompt">A quiz has 8 multiple-choice questions with 4 options each. A student guesses every answer at random. What is the probability they get exactly 3 right?</div>
+  <div class="q-num" data-answer="0.20764" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>X ~ Bin(n = 8, p = 0.25). The trials are independent and each has the same chance of success.</p>
+    <p>P(X = 3) = C(8,3)(0.25)³(0.75)⁵ = 56 × 0.015625 × 0.23730 = <strong>0.2076</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="Discrete RVs">
+  <div class="q-prompt">Emails arrive as a Poisson process at 3 per hour. What is the probability that at most 1 email arrives in a 30-minute window?</div>
+  <div class="q-num" data-answer="0.55783" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>First scale the rate to the window: λ = 3 per hour × 0.5 hour = 1.5. So X ~ Poisson(1.5).</p>
+    <p>P(X ≤ 1) = e<sup>−1.5</sup>(1.5⁰/0! + 1.5¹/1!) = 0.22313 × 2.5 = <strong>0.5578</strong></p>
+    <p class="trap">Trap: if you used λ = 3, you forgot to rescale. Practice set 3 Q3(c) tests the same step (8/hr × 2.5 hr = 20).</p>
+  </div>
+</section>
+
+<!-- ───────────── Continuous RVs ───────────── -->
+<section class="q" data-topic="Continuous RVs">
+  <div class="q-prompt">X has pdf f(x) = x/8 for 0 ≤ x ≤ 4, and 0 otherwise. Find the median of X.</div>
+  <div class="q-num" data-answer="2.8284" data-tol="0.01"></div>
+  <div class="q-solution">
+    <p>First find the CDF: F(x) = ∫₀ˣ t/8 dt = x²/16 for 0 ≤ x ≤ 4.</p>
+    <p>Then set F(m) = 0.5: m²/16 = 0.5, so m² = 8 and m = √8 = <strong>2.828</strong></p>
+    <p>This is the same method as the exponential median in practice set 1, Q3(b): find F, then solve F(m) = 0.5.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Continuous RVs">
+  <div class="q-prompt">A battery's lifetime is exponential with a <strong>mean</strong> of 5 years. Given that the battery has already lasted 4 years, what is the probability that it lasts more than 7 years in total?</div>
+  <div class="q-num" data-answer="0.54881" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>The mean is 1/λ, so λ = 1/5 = 0.2.</p>
+    <p>P(X &gt; 7 | X &gt; 4) = P(X &gt; 7) / P(X &gt; 4) = e<sup>−1.4</sup> / e<sup>−0.8</sup> = e<sup>−0.6</sup> = <strong>0.5488</strong></p>
+    <p>This is the <em>memoryless property</em>: the answer equals P(X &gt; 3), as if the battery were new.</p>
+    <p class="trap">Trap: if you used λ = 5, you mixed up the mean and the rate. Read whether the question gives you the mean or λ.</p>
+  </div>
+</section>
+
+<!-- ───────────── Normal ───────────── -->
+<section class="q" data-topic="Normal">
+  <div class="q-prompt">X ~ N(50, 16). Find P(X &gt; 56). (Use the z-table.)</div>
+  <div class="q-num" data-answer="0.0668" data-tol="0.001"></div>
+  <div class="q-solution">
+    <p>In this course, N(μ, σ²) gives the <strong>variance</strong> as the second number. So σ = √16 = 4. Practice set 1, Q4 points this out in the margin.</p>
+    <p>P(X &gt; 56) = P(Z &gt; (56 − 50)/4) = P(Z &gt; 1.5) = 1 − 0.9332 = <strong>0.0668</strong></p>
+    <p class="trap">Trap: if you used σ = 16, you got z = 0.375 and an answer near 0.35.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Normal">
+  <div class="q-prompt">Heights are N(170, 8²) cm. Only 10% of people are taller than what height?</div>
+  <div class="q-num" data-answer="180.25" data-tol="0.15"></div>
+  <div class="q-solution">
+    <p>"10% are taller" means you want the 90th percentile. In the body of the table, find the entry closest to 0.9000. It's 0.8997, at z = 1.28.</p>
+    <p>x = μ + zσ = 170 + 1.28(8) = <strong>180.24 cm</strong></p>
+    <p>Here you use the table backwards: you start from a probability and look up z. Practice set 3, Q2(b) does the same.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Normal">
+  <div class="q-prompt">X ~ Bin(100, 0.3). Using the normal approximation <strong>with continuity correction</strong>, find P(X ≤ 25).</div>
+  <div class="q-num" data-answer="0.1635" data-tol="0.004"></div>
+  <div class="q-solution">
+    <p>Check the conditions: np = 30 ≥ 5 and n(1−p) = 70 ≥ 5. Then μ = np = 30 and σ = √(np(1−p)) = √21 = 4.583.</p>
+    <p>For "≤ 25", the continuity correction uses 25.5: P(X ≤ 25) ≈ P(Z ≤ (25.5 − 30)/4.583) = P(Z ≤ −0.98)</p>
+    <p>= 1 − 0.8365 = <strong>0.1635</strong></p>
+    <p class="trap">Trap: without the correction you get z = −1.09 and 0.1379. The rule: "≤ k" becomes k + 0.5, and "&lt; k" becomes k − 0.5. Practice set 3, Q4(b) uses it too.</p>
+  </div>
+</section>
+
+<!-- ───────────── Functions of RVs ───────────── -->
+<section class="q" data-topic="Functions of RVs">
+  <div class="q-prompt">X and Y are independent. E(X) = 20, SD(X) = 3, E(Y) = 15 and SD(Y) = 4. Find Var(2X − Y).</div>
+  <div class="q-num" data-answer="52" data-tol="0.01"></div>
+  <div class="q-solution">
+    <p>Var(aX + bY) = a²Var(X) + b²Var(Y) when X and Y are independent.</p>
+    <p>Var(2X − Y) = 4(9) + (−1)²(16) = 36 + 16 = <strong>52</strong></p>
+    <p class="trap">Trap 1: variances <em>add</em> even when you subtract the variables. Trap 2: square the SDs before you combine them. Practice set 2, Q1(e): 5 × 2² = 20.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Functions of RVs">
+  <div class="q-prompt">X has pdf f(x) = 2x on 0 ≤ x ≤ 1. Let W = 4X + 2. What is the pdf of W?</div>
+  <ol class="q-opts">
+    <li>(w − 2)/4 for 2 ≤ w ≤ 6</li>
+    <li>(w − 2)/16 for 2 ≤ w ≤ 6</li>
+    <li data-correct>(w − 2)/8 for 2 ≤ w ≤ 6</li>
+    <li>(w + 2)/8 for 2 ≤ w ≤ 6</li>
+  </ol>
+  <div class="q-solution">
+    <p>Use the CDF method, as in practice set 2 Q2(a). F<sub>X</sub>(x) = x², so</p>
+    <p>F<sub>W</sub>(w) = P(4X + 2 ≤ w) = P(X ≤ (w−2)/4) = ((w−2)/4)² = (w−2)²/16</p>
+    <p>Differentiate: f<sub>W</sub>(w) = 2(w−2)/16 = <strong>(w−2)/8</strong> on 2 ≤ w ≤ 6</p>
+    <p>Quick check: ∫₂⁶ (w−2)/8 dw = 16/16 = 1 ✓. Option A integrates to 2 and option B to ½, so neither is a valid pdf. Doing this check catches most algebra slips.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Functions of RVs">
+  <div class="q-prompt">X₁ and X₂ are independent, each U(0, 10). Let M = min(X₁, X₂). Find P(M ≤ 4).</div>
+  <div class="q-num" data-answer="0.64" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>The min is above 4 only if <em>both</em> values are above 4. So</p>
+    <p>P(M ≤ 4) = 1 − P(X₁ &gt; 4)P(X₂ &gt; 4) = 1 − (0.6)(0.6) = <strong>0.64</strong></p>
+    <p>For the max, flip it: P(max ≤ y) = P(X₁ ≤ y)P(X₂ ≤ y). Practice set 1 Q5 (max) and practice set 2 Q5 (min) both rely on this.</p>
+  </div>
+</section>
+
+<div id="scoreboard" class="scoreboard" data-quiz="0001-diagnostic"></div>
+
+<hr>
+
+<h2>What happens next</h2>
+<p>When you finish, click <strong>Copy results</strong> and paste them back to Claude. Your weakest two or three topics become the next lessons. Each one is short and drills a single type of exam question until you can do it from memory.</p>
+
+<div class="callout ask">
+<p><strong>Stuck on a solution?</strong> Ask Claude. "Why is it 25.5 and not 24.5?" and "When do I use the CDF method?" are both good questions. Ask follow-ups about anything that doesn't make sense.</p>
+</div>
+
+<h3>Primary source</h3>
+<p>Your instructor's own <strong>midterm practice problems with solutions</strong> (<a href="../Midterm_Practice_Problems_1_solutions.pdf">set 1</a>, <a href="../Midterm_Practice_Problems_2_solutions.pdf">set 2</a>, <a href="../Midterm_Practice_Problems_3_solutions.pdf">set 3</a>) are the best guide to what will be on the exam. They show the question style and how marks get assigned. The partial marks reward steps like "defining the random variable" and "stating the distribution." Every question above copies one of their patterns with new numbers. If a topic needs more background, read the matching chapter of your course notes (Canvas → "Textbook &amp; Suggested Problems"). For a second explanation, try <a href="https://online.stat.psu.edu/stat414/">Penn State STAT 414</a>.</p>
+
+<p class="muted">Next: <a href="../reference/formula-sheet.html">Formula sheet (a template for your handwritten cheat sheet)</a></p>
+</main>
+<script src="../assets/ztable.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

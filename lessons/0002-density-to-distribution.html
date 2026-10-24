@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Density to Distribution</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+<nav class="crumbs">STAT 251 midterm · Lesson 0002 · <a href="0001-diagnostic.html">← 0001 Diagnostic</a> · <a href="../reference/formula-sheet.html">Formula sheet</a></nav>
+
+<h1>One integral does most of the work</h1>
+<p class="subtitle">Chapter 4.3–4.4: from a density f(x) to F(x), then to probabilities, quantiles and the mean</p>
+
+<p>Most of the Chapter 4–6 questions you're struggling with run through one step. You take a density f(x) and integrate it to get the <strong>distribution function</strong> F(x). After that, interval probabilities, medians, quartiles, the max and min of several variables, and transformations all come out of F with algebra. The exponential is one density you'll do this for, and Chapter 6 gives you more. This lesson drills that one step.</p>
+
+<h2>The idea</h2>
+<p>The course notes' flood-level example (<a href="../textBook_coursenotes.pdf#page=65">Example 4.2, p. 65</a>) has density f(x) = 0.125(x − 5) for 5 &lt; x &lt; 9. A probability is an <em>area</em> under f:</p>
+
+<figure>
+<svg viewBox="0 0 420 215" role="img" aria-label="Triangle-shaped density from 5 to 9 with the area between 6 and 7 shaded">
+  <polygon class="shade" points="160,180 160,145 220,110 220,180"/>
+  <line class="ax" x1="40" y1="180" x2="410" y2="180"/>
+  <line class="ax" x1="40" y1="180" x2="40" y2="25"/>
+  <polyline class="curve" points="40,180 100,180 340,40 340,180 400,180"/>
+  <text x="96" y="198">5</text><text x="156" y="198">6</text><text x="216" y="198">7</text><text x="336" y="198">9</text>
+  <text x="8" y="44">0.5</text><text x="20" y="184">0</text>
+  <text x="168" y="172">P(6&lt;X&lt;7)</text>
+  <text x="250" y="70">f(x) = 0.125(x − 5)</text>
+</svg>
+<figcaption>The shaded area is P(6 &lt; X &lt; 7) = F(7) − F(6). F(x) is all of the area to the left of x.</figcaption>
+</figure>
+
+<p>Integrating from the start of the support gives F(x) = ∫₅ˣ 0.125(t − 5) dt = 0.0625(x − 5)². Every question after that is algebra, not integration:</p>
+<p class="formula">P(6 &lt; X &lt; 7) = F(7) − F(6) = 0.0625(4) − 0.0625(1) = 0.1875</p>
+
+<h2>The recipe</h2>
+<ol class="steps">
+  <li><strong>Find any unknown constant</strong> by setting ∫ f(x) dx = 1 over the support.</li>
+  <li><strong>Find F(x)</strong> = ∫ from the start of the support to x of f(t) dt. Write it <em>piecewise</em>: 0 before the support, your formula on it, and 1 after it. The piecewise form earns a mark.</li>
+  <li><strong>Interval probability:</strong> P(a &lt; X &lt; b) = F(b) − F(a). With a continuous X, &lt; and ≤ give the same answer.</li>
+  <li><strong>Quantile Q(α):</strong> solve F(x) = α. The median is Q(0.5), and IQR = Q(0.75) − Q(0.25). If you get two roots, keep the one inside the support.</li>
+  <li><strong>Mean and variance:</strong> E(X) = ∫ x f(x) dx, then Var(X) = E(X²) − [E(X)]². This is the only step that needs a second integral.</li>
+</ol>
+<p>For an exponential with rate λ, the recipe gives F(x) = 1 − e<sup>−λx</sup>, which is the course notes' <a href="../textBook_coursenotes.pdf#page=69">Example 4.4</a>. For a uniform on (a, b), it gives F(x) = (x − a)/(b − a). Learn those two results by heart. You'll use them again in lessons on max/min, Poisson processes and transformations.</p>
+
+<div class="callout">
+<p><strong>Practice like the exam:</strong> work each question on paper and show every step. The first answer you enter is the one that counts. Questions 2–7 all use the same density, so each one builds on your last answer.</p>
+</div>
+
+<section class="q" data-topic="Concept">
+  <div class="q-prompt">X is continuous with density f(x). What is P(X = 3)?</div>
+  <ol class="q-opts">
+    <li>f(3), the density at that point</li>
+    <li>F(3), the distribution function at three</li>
+    <li data-correct>0, single points carry no probability</li>
+    <li>1−F(3), the upper tail beyond three</li>
+  </ol>
+  <div class="q-solution">
+    <p>A single point is an interval of width 0, so ∫₃³ f(x) dx = 0. That's why f(3) is <em>not</em> a probability: it can be bigger than 1. It's also why P(X ≤ 3) = P(X &lt; 3). See course notes p. 64.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Recipe">
+  <div class="q-prompt">X has density f(x) = c(4 − x) for 0 ≤ x ≤ 4, and 0 otherwise. Find c.</div>
+  <div class="q-num" data-answer="0.125" data-tol="0.0005"></div>
+  <div class="q-solution">
+    <p>∫₀⁴ c(4 − x) dx = c[4x − x²/2]₀⁴ = c(16 − 8) = 8c = 1, so <strong>c = 1/8 = 0.125</strong></p>
+    <p>Check: the graph is a triangle with base 4 and height 4c, so its area is ½ · 4 · 4c = 8c ✓</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Recipe">
+  <div class="q-prompt">Same X. Which is F(x) for 0 ≤ x ≤ 4?</div>
+  <ol class="q-opts">
+    <li>4x − x²/2</li>
+    <li data-correct>x/2 − x²/16</li>
+    <li>1/2 − x/8</li>
+    <li>x/8 − x²/32</li>
+  </ol>
+  <div class="q-solution">
+    <p>F(x) = ∫₀ˣ (4 − t)/8 dt = (1/8)[4t − t²/2]₀ˣ = <strong>x/2 − x²/16</strong></p>
+    <p>Check: F(0) = 0 and F(4) = 2 − 1 = 1 ✓. Option A gives F(4) = 8, which is impossible. Option C is just f(x) again. Checking F at both ends of the support catches most slips.</p>
+    <p>Full answer: F(x) = 0 for x &lt; 0; x/2 − x²/16 for 0 ≤ x ≤ 4; 1 for x &gt; 4.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Recipe">
+  <div class="q-prompt">Same X. Find P(1 &lt; X &lt; 3).</div>
+  <div class="q-num" data-answer="0.5" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>F(3) = 1.5 − 0.5625 = 0.9375 and F(1) = 0.5 − 0.0625 = 0.4375</p>
+    <p>P(1 &lt; X &lt; 3) = 0.9375 − 0.4375 = <strong>0.5</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="Recipe">
+  <div class="q-prompt">Same X. Find the median, Med(X) = Q(0.5).</div>
+  <div class="q-num" data-answer="1.17157" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>Set x/2 − x²/16 = 0.5. Multiply through by 16: 8x − x² = 8, so x² − 8x + 8 = 0.</p>
+    <p>x = (8 ± √32)/2 = 4 ± 2.828. Only <strong>1.1716</strong> is inside [0, 4].</p>
+    <p>The median is below 2 because the density leans toward 0: it's right-skewed.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Recipe">
+  <div class="q-prompt">Same X. Solving F(x) = 0.75 gives x² − 8x + 12 = 0. What is Q(0.75)?</div>
+  <ol class="q-opts">
+    <li>x = 6</li>
+    <li>x = 4</li>
+    <li>x = 3</li>
+    <li data-correct>x = 2</li>
+  </ol>
+  <div class="q-solution">
+    <p>(x − 2)(x − 6) = 0. Since 6 is outside the support [0, 4], <strong>Q(0.75) = 2</strong>.</p>
+    <p class="trap">Trap: a quadratic often gives a second root that looks fine. Always check it against the support.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Recipe">
+  <div class="q-prompt">Same X. Find E(X).</div>
+  <div class="q-num" data-answer="1.33333" data-tol="0.003"></div>
+  <div class="q-solution">
+    <p>E(X) = ∫₀⁴ x(4 − x)/8 dx = (1/8)[2x² − x³/3]₀⁴ = (1/8)(32 − 21.333) = <strong>4/3 ≈ 1.3333</strong></p>
+    <p>The mean (1.33) is above the median (1.17), which fits a right skew, as in Chapter 1.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Recipe">
+  <div class="q-prompt">Same X. Find Var(X).</div>
+  <div class="q-num" data-answer="0.88889" data-tol="0.004"></div>
+  <div class="q-solution">
+    <p>E(X²) = ∫₀⁴ x²(4 − x)/8 dx = (1/8)[4x³/3 − x⁴/4]₀⁴ = (1/8)(85.333 − 64) = 2.6667</p>
+    <p>Var(X) = 2.6667 − (1.3333)² = 2.6667 − 1.7778 = <strong>0.8889</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="Exponential">
+  <div class="q-prompt">The waiting time X (hours) for a bus is exponential with rate λ = 0.5 per hour. Find P(X &gt; 3).</div>
+  <div class="q-num" data-answer="0.22313" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>F(x) = 1 − e<sup>−0.5x</sup>, so P(X &gt; 3) = 1 − F(3) = e<sup>−1.5</sup> = <strong>0.2231</strong></p>
+    <p>For an exponential, the upper tail is just e<sup>−λx</sup>. Put that on your cheat sheet.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Exponential">
+  <div class="q-prompt">Same bus. Find the median waiting time.</div>
+  <div class="q-num" data-answer="1.38629" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>1 − e<sup>−0.5m</sup> = 0.5 → e<sup>−0.5m</sup> = 0.5 → −0.5m = ln 0.5 → m = ln 2 / 0.5 = <strong>1.386 hours</strong></p>
+    <p>Practice set 1 Q3(b) is exactly this (λ = 0.013 → 53.31 m), and it's worth 3 marks: one for F(m) = 0.5, one for taking logs, one for the answer.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Uniform">
+  <div class="q-prompt">The time to finish a road is uniform on (15, 20) months. Find the probability that it's done within 18 months.</div>
+  <div class="q-num" data-answer="0.6" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>F(x) = (x − 15)/5, so F(18) = 3/5 = <strong>0.6</strong></p>
+    <p>This is the starting point of the textbook's Problem 4.23 (<a href="../Chapter4-Question23.pdf">solution</a>). The project finishes when the <em>last</em> of three pieces finishes. That's a maximum, and it's coming in Lesson 0003.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="Review: Ch 3">
+  <div class="q-prompt">Spaced review: two components work independently, each with probability 0.9. The system works if <em>at least one</em> works (parallel). Find P(system works).</div>
+  <div class="q-num" data-answer="0.99" data-tol="0.0005"></div>
+  <div class="q-solution">
+    <p>P(at least one) = 1 − P(both fail) = 1 − (0.1)(0.1) = <strong>0.99</strong></p>
+    <p>Remember "1 − P(none)". Next lesson it becomes the formula for the <em>minimum</em> of random variables.</p>
+  </div>
+</section>
+
+<div id="scoreboard" class="scoreboard" data-quiz="0002-density-to-distribution"></div>
+
+<hr>
+
+<h2>Lock it in</h2>
+<p>Tomorrow, before you open the next lesson, do this with a blank page. It takes 5 minutes. Write the five-step recipe from memory, then run it on f(x) = 3x² for 0 ≤ x ≤ 1: find F, P(0.5 &lt; X &lt; 1), the median, and E(X). Answers: x³, 0.875, 0.7937, 0.75. Recalling something a day later makes it stick much better than rereading it today.</p>
+
+<div class="callout ask">
+<p><strong>Ask Claude about anything unclear.</strong> For example: "Why do we integrate from the start of the support and not from −∞?", "How do I set up E(X²)?", or "Walk me through practice set 1 Q3 step by step."</p>
+</div>
+
+<h3>Primary source</h3>
+<p>Course notes <strong>§4.3–4.4, pp. 63–74</strong> (<a href="../textBook_coursenotes.pdf#page=63">open</a>). Read Examples 4.2 and 4.4 closely: they use the same recipe with the course's own notation, Q(α) and Med(X). Then try the Chapter 4 exercises on p. 82 and check them against your solution files.</p>
+
+<p class="muted">Next: Lesson 0003, the max and min of independent random variables (§4.6), and sums and averages (§4.5).</p>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
