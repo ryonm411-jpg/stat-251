@@ -138,3 +138,24 @@ svg .ax { stroke: var(--fg); stroke-width: 1.2; fill: none; }
 svg .curve { stroke: var(--accent); stroke-width: 2; fill: none; }
 svg .shade { fill: var(--accent); fill-opacity: .18; }
 svg text { fill: var(--muted); font: 12px "Source Serif 4", Georgia, serif; }
+
+/* Timer component (assets/timer.js) */
+.timer { position: sticky; top: 0; z-index: 5; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: .5rem .8rem; display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.timer-clock { font-size: 1.4rem; min-width: 4.5ch; }
+.timer-clock.over { color: var(--bad); }
+@media print { .timer { display: none; } }
+
+/* One-page cheat-sheet layout (reference/my-cheat-sheet.html) */
+.onepage .cols { columns: 2 20rem; column-gap: 1.4rem; }
+.onepage .block { border: 1px solid var(--rule); border-radius: 4px; padding: .4rem .6rem; }
+.onepage .block.big { border: 2px solid var(--accent); }
+.onepage .block p, .onepage .block li { margin: .2rem 0; }
+.onepage .formula { margin: .25rem 0; }
+.prio { display: inline-block; font-size: .7rem; font-family: "JetBrains Mono", monospace; padding: 0 .35rem; border-radius: 3px; vertical-align: middle; margin-left: .3rem; }
+.prio.big { background: var(--accent-soft); color: var(--accent); }
+.prio.small { background: var(--panel); color: var(--muted); }
+@media print {
+  .onepage html, html:has(.onepage) { font-size: 8.3pt; }
+  .onepage .prio { display: none; }
+  @page { margin: 1cm; }
+}

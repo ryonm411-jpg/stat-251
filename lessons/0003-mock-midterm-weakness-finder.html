@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock Midterm</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+<nav class="crumbs">STAT 251 midterm · Lesson 0003 · <a href="0002-density-to-distribution.html">← 0002 Density to distribution</a> · <a href="../reference/formula-sheet.html">Formula sheet</a></nav>
+
+<h1>Mock midterm: find your weak spots</h1>
+<p class="subtitle">26 questions mixing Ch 1, 3, 4, 5, 6, modelled on the instructor's three practice sets</p>
+
+<p>The exam is Friday, so we're cutting the separate topic lessons and going straight to a mixed mock. The questions jump between chapters on purpose. On the real exam you have to work out <em>which tool</em> a question needs, and practising in mixed order trains that (<a href="https://www.retrievalpractice.org/interleaving">interleaving</a>). When you finish, the scoreboard at the bottom groups your results by topic. That table is your weakness map.</p>
+
+<div class="callout">
+<p><strong>How to take it</strong></p>
+<ol class="steps">
+  <li>Work on paper with just a calculator, the way you will on Friday. For every question, write: <em>define the RV → name the distribution and its parameters → write the formula → substitute</em>. Those steps are where the partial marks are.</li>
+  <li>Start the timer: 50 minutes, the same as the real exam. If you go over, keep going and note how far over you were. Speed is useful data too.</li>
+  <li>The first answer you enter is the one that counts, so don't guess just to see the solution. If you're truly stuck, enter <code>0</code>. Marking it as missed is more honest than a lucky guess.</li>
+  <li>At the end, press <strong>Copy results to paste to Claude</strong> and paste the results here. I'll build tomorrow's drill from them.</li>
+</ol>
+</div>
+
+<div class="timer" data-timer="50"></div>
+
+<details class="ztable" data-ztable><summary>Show z-table (like the one on the exam)</summary></details>
+
+<!-- 1 -->
+<section class="q" data-topic="Ch 1 Descriptive">
+  <div class="q-prompt">A histogram of house prices in a city has a long tail stretching to the right. Which statement is most likely true?</div>
+  <ol class="q-opts">
+    <li>Median is larger than the mean</li>
+    <li>Mean and median are exactly equal</li>
+    <li data-correct>Mean is larger than the median</li>
+    <li>The IQR is larger than the range</li>
+  </ol>
+  <div class="q-solution">
+    <p>A right tail (right skew) pulls the <strong>mean</strong> toward the big values. The median doesn't move much. So <strong>mean &gt; median</strong>. Practice set 1 Q1(iii) asks exactly this. The IQR can never be larger than the range.</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="q" data-topic="Ch 3 Probability">
+  <div class="q-prompt">A factory has three machines. A makes 50% of the items, B makes 30% and C makes 20%. Their defect rates are 2%, 3% and 5%. Find the probability that a randomly chosen item is defective.</div>
+  <div class="q-num" data-answer="0.029" data-tol="0.0005"></div>
+  <div class="q-solution">
+    <p>Let D = the item is defective. By the <strong>law of total probability</strong>:</p>
+    <p class="formula">P(D) = P(D|A)P(A) + P(D|B)P(B) + P(D|C)P(C) = 0.02(0.5) + 0.03(0.3) + 0.05(0.2) = <strong>0.029</strong></p>
+    <p>This is the same setup as practice set 2 Q3(a), the risk-level question. Define the events first. That earns a mark.</p>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="q" data-topic="Ch 5 Normal">
+  <div class="q-prompt">X ~ N(50, 16). Find P(X &gt; 56).</div>
+  <div class="q-num" data-answer="0.0668" data-tol="0.0015"></div>
+  <div class="q-solution">
+    <p class="trap">Trap: in this course N(μ, σ²) puts the <em>variance</em> second. So σ = √16 = 4, not 16. Practice set 1 Q4 gives a mark just for spotting this.</p>
+    <p>P(X &gt; 56) = P(Z &gt; (56 − 50)/4) = P(Z &gt; 1.5) = 1 − 0.9332 = <strong>0.0668</strong></p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="q" data-topic="Ch 4 Density → F">
+  <div class="q-prompt">X has density f(x) = kx² for 0 ≤ x ≤ 3, and 0 otherwise. Find k.</div>
+  <div class="q-num" data-answer="0.111111" data-tol="0.0006"></div>
+  <div class="q-solution">
+    <p>∫₀³ kx² dx = k[x³/3]₀³ = 9k = 1, so <strong>k = 1/9 ≈ 0.1111</strong></p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="q" data-topic="Ch 6 Poisson & exponential">
+  <div class="q-prompt">Calls reach a help desk as a Poisson process with rate 3 per hour. Find the probability of exactly 2 calls in a 30-minute period.</div>
+  <div class="q-num" data-answer="0.2510" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>First, <strong>rescale the rate to the time window</strong>: 30 min = 0.5 h, so X ~ Poisson(3 × 0.5 = 1.5).</p>
+    <p class="formula">P(X = 2) = e<sup>−1.5</sup> 1.5² / 2! = 0.2231 × 1.125 = <strong>0.2510</strong></p>
+    <p>Practice set 3 Q3(c) also rescales: 8 per hour × 2.5 h → Poisson(20).</p>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="q" data-topic="Ch 4 Sums & averages">
+  <div class="q-prompt">X and Y are independent with Var(X) = 4 and Var(Y) = 1. Find Var(2X − 3Y).</div>
+  <div class="q-num" data-answer="25" data-tol="0.01"></div>
+  <div class="q-solution">
+    <p>Var(aX + bY) = a²Var(X) + b²Var(Y) when X and Y are independent. Constants come out <em>squared</em>, so the minus sign disappears:</p>
+    <p class="formula">Var(2X − 3Y) = 4(4) + 9(1) = <strong>25</strong></p>
+    <p class="trap">Trap: variances never subtract. The answers 4(4) − 9(1) = 7 and 2(4) − 3(1) = 5 are both wrong.</p>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="q" data-topic="Ch 3 Probability">
+  <div class="q-prompt">Same factory as Q2. An item is found to be defective. What is the probability that it came from machine C?</div>
+  <div class="q-num" data-answer="0.3448" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p><strong>Bayes</strong>: P(C|D) = P(D|C)P(C) / P(D) = 0.05(0.2) / 0.029 = 0.010 / 0.029 = <strong>0.3448</strong></p>
+    <p>Machine C makes only 20% of the items, yet it accounts for 34% of the defects. Bayes questions are often built to show a jump like that.</p>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="q" data-topic="Ch 4 Density → F">
+  <div class="q-prompt">Same X as Q4, with f(x) = x²/9 on [0, 3]. Find P(X &gt; 2).</div>
+  <div class="q-num" data-answer="0.7037" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>F(x) = ∫₀ˣ t²/9 dt = x³/27 for 0 ≤ x ≤ 3. Check: F(3) = 1 ✓</p>
+    <p>P(X &gt; 2) = 1 − F(2) = 1 − 8/27 = <strong>19/27 ≈ 0.7037</strong></p>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="q" data-topic="Ch 6 Binomial & geometric">
+  <div class="q-prompt">In any year, a river floods with probability 0.04, independently of other years. Find the probability that the <em>first</em> flood happens in year 3.</div>
+  <div class="q-num" data-answer="0.036864" data-tol="0.0006"></div>
+  <div class="q-solution">
+    <p>Let X be the year of the first flood, so X ~ Geometric(p = 0.04) and P(X = k) = (1 − p)<sup>k−1</sup>p:</p>
+    <p class="formula">P(X = 3) = 0.96² × 0.04 = <strong>0.0369</strong></p>
+    <p>The <strong>return period</strong> is E(X) = 1/p = 25 years. That means "a 25-year flood". It does <em>not</em> mean a flood happens exactly every 25 years.</p>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="q" data-topic="Ch 5 Normal">
+  <div class="q-prompt">Same X ~ N(50, 16). Find P(46 &lt; X &lt; 58).</div>
+  <div class="q-num" data-answer="0.8185" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>z-values: (46 − 50)/4 = −1 and (58 − 50)/4 = 2.</p>
+    <p class="formula">P(−1 &lt; Z &lt; 2) = P(Z &lt; 2) − P(Z &lt; −1) = 0.9772 − (1 − 0.8413) = <strong>0.8185</strong></p>
+    <p>For a negative z, use symmetry: P(Z &lt; −1) = 1 − P(Z &lt; 1). Practice set 3 Q2(a) is the same pattern.</p>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="q" data-topic="Ch 4 Max / min">
+  <div class="q-prompt">A system has 3 independent components in <em>series</em>, so it fails as soon as any one component fails. Each lifetime is exponential with rate λ = 0.1 per year. Find the probability that the system lasts more than 5 years.</div>
+  <div class="q-num" data-answer="0.2231" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>A series system fails when the first component fails, so its lifetime is Y = <strong>min</strong>(X₁, X₂, X₃).</p>
+    <p class="formula">P(Y &gt; 5) = P(all three &gt; 5) = [P(X &gt; 5)]³ = (e<sup>−0.5</sup>)³ = e<sup>−1.5</sup> = <strong>0.2231</strong></p>
+    <p>Rule: for a <strong>min</strong>, work with P(Y &gt; y). For a <strong>max</strong>, work with P(Y ≤ y). Either way, independence turns "all of them" into a product.</p>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="q" data-topic="Ch 1 Descriptive">
+  <div class="q-prompt">Exam scores have a standard deviation of 4. Every score is doubled, and then 5 points are added. What is the new standard deviation?</div>
+  <ol class="q-opts">
+    <li>13</li>
+    <li data-correct>8</li>
+    <li>4</li>
+    <li>21</li>
+  </ol>
+  <div class="q-solution">
+    <p>Adding a constant shifts every score but doesn't change the spread. Multiplying by 2 doubles the spread. New SD = 2 × 4 = <strong>8</strong>. The variance would become 4 × 16 = 64.</p>
+    <p>Practice set 1 Q1(v)–(vi): adding 5 changes the median and the quartiles, but not the IQR or the SD.</p>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="q" data-topic="Ch 4 Transformations">
+  <div class="q-prompt">Y has density f(y) = 2y for 0 ≤ y ≤ 1. Let U = 4Y − 1. Which is the density of U?</div>
+  <ol class="q-opts">
+    <li>(u + 1)/4 on −1 ≤ u ≤ 3</li>
+    <li>(u + 1)/8 on 0 ≤ u ≤ 1</li>
+    <li>2u on −1 ≤ u ≤ 3</li>
+    <li data-correct>(u + 1)/8 on −1 ≤ u ≤ 3</li>
+  </ol>
+  <div class="q-solution">
+    <p><strong>Go through F, never straight to f.</strong> F<sub>Y</sub>(y) = y².</p>
+    <p class="formula">G(u) = P(4Y − 1 ≤ u) = P(Y ≤ (u+1)/4) = ((u+1)/4)²</p>
+    <p class="formula">g(u) = G′(u) = 2(u+1)/16 = <strong>(u + 1)/8</strong></p>
+    <p>Support: y = 0 → u = −1 and y = 1 → u = 3. Check that the area is 1: ∫₋₁³ (u+1)/8 du = 16/16 = 1 ✓. Practice set 2 Q2 uses the same method with U = 3Y − 1.</p>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="q" data-topic="Ch 6 Poisson & exponential">
+  <div class="q-prompt">Same help desk (3 calls per hour). A call just arrived. Find the probability that the wait for the next call is more than 40 minutes.</div>
+  <div class="q-num" data-answer="0.1353" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>The time T between events in a Poisson process is exponential with the same rate: T ~ Exp(3) in hours. 40 min = 2/3 h.</p>
+    <p class="formula">P(T &gt; 2/3) = e<sup>−3(2/3)</sup> = e<sup>−2</sup> = <strong>0.1353</strong></p>
+    <p class="trap">Trap: convert the time to match the rate's units first. e<sup>−3×40</sup> is wrong. Practice set 3 Q3(b) is this question.</p>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="q" data-topic="Ch 3 Probability">
+  <div class="q-prompt">P(A) = 0.4, P(B) = 0.5 and P(A ∪ B) = 0.7. Which is correct?</div>
+  <ol class="q-opts">
+    <li>Not independent; P(A ∩ B) = 0.20</li>
+    <li data-correct>Independent; P(A ∩ B) = 0.20</li>
+    <li>Independent; P(A ∩ B) = 0.10</li>
+    <li>Not independent; P(A ∩ B) = 0.30</li>
+  </ol>
+  <div class="q-solution">
+    <p>Rearrange the addition rule: P(A ∩ B) = 0.4 + 0.5 − 0.7 = 0.2.</p>
+    <p>Then check P(A)P(B) = 0.4 × 0.5 = 0.2, which equals P(A ∩ B), so they <strong>are independent</strong>. Write out both numbers and the comparison. Practice set 1 Q2(a)(ii) gives 2 marks for that line.</p>
+    <p class="trap">Don't mix up independent with disjoint. Disjoint means P(A ∩ B) = 0, and two disjoint events with non-zero probabilities can never be independent.</p>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="q" data-topic="Ch 5 Normal">
+  <div class="q-prompt">Same X ~ N(50, 16). Find the value c such that only 10% of X values are above c. Use the z-table and round z to 2 decimals.</div>
+  <div class="q-num" data-answer="55.12" data-tol="0.05"></div>
+  <div class="q-solution">
+    <p>Only 10% above means 90% below, so c is the 90th percentile. Search the <em>inside</em> of the table for 0.90. The closest entry is 0.8997, at z = 1.28.</p>
+    <p class="formula">(c − 50)/4 = 1.28 → c = 50 + 4(1.28) = <strong>55.12</strong></p>
+    <p>This is reading the table backwards (probability → z). Practice set 3 Q2(b) is worth 3 marks: one for the set-up, one for the table value and one for the answer.</p>
+  </div>
+</section>
+
+<!-- 17 -->
+<section class="q" data-topic="Ch 4 Density → F">
+  <div class="q-prompt">Same X as Q4 (F(x) = x³/27 on [0, 3]). Find the median.</div>
+  <div class="q-num" data-answer="2.3811" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>x³/27 = 0.5 → x³ = 13.5 → x = 13.5<sup>1/3</sup> = <strong>2.381</strong></p>
+    <p>The median is above 1.5, the midpoint of [0, 3], because this density puts more weight on large values.</p>
+  </div>
+</section>
+
+<!-- 18 -->
+<section class="q" data-topic="Ch 6 Binomial & geometric">
+  <div class="q-prompt">From Q3, P(X &gt; 56) = 0.0668 for one item. Four items are chosen independently. Find the probability that <em>at least one</em> of them has X &gt; 56.</div>
+  <div class="q-num" data-answer="0.2416" data-tol="0.003"></div>
+  <div class="q-solution">
+    <p>Let W be the number of items (out of 4) with X &gt; 56, so W ~ Bin(4, 0.0668).</p>
+    <p class="formula">P(W ≥ 1) = 1 − P(W = 0) = 1 − (1 − 0.0668)⁴ = 1 − 0.9332⁴ = <strong>0.2416</strong></p>
+    <p>Practice set 3 Q2(c) and Q4(a) both <strong>chain a normal probability into a binomial</strong>. Expect this on the exam. Saying "Y ~ Bin(n, p)" earns its own half mark.</p>
+  </div>
+</section>
+
+<!-- 19 -->
+<section class="q" data-topic="Ch 4 Max / min">
+  <div class="q-prompt">X₁ and X₂ are independent, each Uniform(0, 10). Let Y = max(X₁, X₂). Find the median of Y.</div>
+  <div class="q-num" data-answer="7.0711" data-tol="0.01"></div>
+  <div class="q-solution">
+    <p>F<sub>Y</sub>(y) = P(X₁ ≤ y, X₂ ≤ y) = (y/10)(y/10) = y²/100 for 0 ≤ y ≤ 10.</p>
+    <p class="formula">y²/100 = 0.5 → y = √50 = <strong>7.071</strong></p>
+    <p>Practice set 1 Q5 is the harder version, with two <em>different</em> uniforms. That gives a piecewise F and needs care with the support. Look at it again after this.</p>
+  </div>
+</section>
+
+<!-- 20 -->
+<section class="q" data-topic="Ch 3 Probability">
+  <div class="q-prompt">X has this pmf: P(0) = 0.10, P(1) = 0.25, P(2) = 0.30, P(3) = 0.20, P(4) = 0.15. Find P(X ≤ 3 | X ≥ 1).</div>
+  <div class="q-num" data-answer="0.8333" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>P(X ≤ 3 | X ≥ 1) = P(1 ≤ X ≤ 3) / P(X ≥ 1) = (0.25 + 0.30 + 0.20) / 0.90 = 0.75/0.90 = <strong>0.8333</strong></p>
+    <p>The numerator is the <em>overlap</em> of the two conditions. Practice set 2 Q1(d) has the same shape.</p>
+  </div>
+</section>
+
+<!-- 21 -->
+<section class="q" data-topic="Ch 4 Transformations">
+  <div class="q-prompt">Same Y as Q13 (f(y) = 2y on [0, 1]) and U = 4Y − 1. Find E(U).</div>
+  <div class="q-num" data-answer="1.6667" data-tol="0.003"></div>
+  <div class="q-solution">
+    <p>Shortcut: expectation is linear, so E(U) = 4E(Y) − 1. E(Y) = ∫₀¹ y · 2y dy = 2/3.</p>
+    <p class="formula">E(U) = 4(2/3) − 1 = <strong>5/3 ≈ 1.667</strong></p>
+    <p>You could also compute ∫ u g(u) du, as practice set 2 Q2(b) does. Linearity is quicker and safer.</p>
+  </div>
+</section>
+
+<!-- 22 -->
+<section class="q" data-topic="Ch 6 Poisson & exponential">
+  <div class="q-prompt">A chip is defective with probability 0.004. In a batch of 500 chips, use the Poisson approximation to find P(at most 1 defective).</div>
+  <div class="q-num" data-answer="0.4060" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>X ~ Bin(500, 0.004). n is large and p is small, so X ≈ Poisson(λ = np = 2).</p>
+    <p class="formula">P(X ≤ 1) ≈ e<sup>−2</sup>(1 + 2) = 3e<sup>−2</sup> = <strong>0.4060</strong></p>
+    <p>State the approximation and why it's allowed (n large, p small). That's part of the marks.</p>
+  </div>
+</section>
+
+<!-- 23 -->
+<section class="q" data-topic="Ch 5 Normal">
+  <div class="q-prompt">Same X ~ N(50, 16). Find P(|X − 50| &lt; 6).</div>
+  <div class="q-num" data-answer="0.8664" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>Remove the absolute value: |X − 50| &lt; 6 ⇔ 44 &lt; X &lt; 56 ⇔ −1.5 &lt; Z &lt; 1.5.</p>
+    <p class="formula">P = 2(0.9332) − 1 = <strong>0.8664</strong></p>
+    <p>For "&gt;", take the complement. Practice set 1 Q4 is P(|X − 5| &gt; 2), and the interval there is <em>not</em> centred on the mean, so you need two separate z-values.</p>
+  </div>
+</section>
+
+<!-- 24 -->
+<section class="q" data-topic="Ch 6 Binomial & geometric">
+  <div class="q-prompt">Same river as Q9 (p = 0.04 per year). Find the probability of at least one flood in the next 10 years.</div>
+  <div class="q-num" data-answer="0.3352" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p class="formula">P(at least one) = 1 − P(none in 10 years) = 1 − 0.96¹⁰ = <strong>0.3352</strong></p>
+    <p>The same answer from a geometric view is P(first flood ≤ 10) = 1 − (1 − p)¹⁰. So the chance of a "25-year flood" in any 10-year stretch is about 1 in 3.</p>
+  </div>
+</section>
+
+<!-- 25 -->
+<section class="q" data-topic="Ch 4 Sums & averages">
+  <div class="q-prompt">A rod's length has mean 50 cm and SD 3 cm. Four independent rods are laid end to end. What is the SD of the total length?</div>
+  <ol class="q-opts">
+    <li>12 cm</li>
+    <li>36 cm</li>
+    <li data-correct>6 cm</li>
+    <li>1.5 cm</li>
+  </ol>
+  <div class="q-solution">
+    <p><strong>Add the variances, not the SDs.</strong> Var(total) = 4 × 3² = 36, so SD = √36 = <strong>6 cm</strong>. The mean of the total is 200 cm.</p>
+    <p>For the <em>average</em> of 4 rods, the SD is 3/√4 = 1.5. Practice set 2 Q1(e) tests this.</p>
+  </div>
+</section>
+
+<!-- 26 -->
+<section class="q" data-topic="Ch 7.2 Normal approx (maybe)">
+  <div class="q-prompt">Bonus (normal approximation to the binomial, from practice set 3; it may not be on the exam). X ~ Bin(100, 0.3). Use the normal approximation <em>with continuity correction</em> to find P(X ≤ 25). Round z to 2 decimals.</div>
+  <div class="q-num" data-answer="0.1635" data-tol="0.004"></div>
+  <div class="q-solution">
+    <p>np = 30 ≥ 5 and n(1 − p) = 70 ≥ 5 ✓. μ = 30, σ² = np(1 − p) = 21.</p>
+    <p class="formula">P(X ≤ 25) ≈ P(Z ≤ (25.5 − 30)/√21) = P(Z ≤ −0.98) = 1 − 0.8365 = <strong>0.1635</strong></p>
+    <p>"≤ 25" becomes 25.5 with the continuity correction. Practice set 3 Q4(b) does the same thing.</p>
+  </div>
+</section>
+
+<div id="scoreboard" class="scoreboard" data-quiz="0003-mock-midterm"></div>
+
+<hr>
+
+<h2>After the mock</h2>
+<p>Look at the scoreboard. Any topic under about 60% is a weak spot. Copy your results and paste them to me, and I'll build tomorrow's targeted drill from them. Then, for every question you missed, close the solution and redo it on a blank page. Don't just reread it. Effortful recall is what makes it stick for Friday.</p>
+<p>Start your handwritten cheat sheet from the <a href="../reference/formula-sheet.html">formula sheet template</a>. Give the most space to the topics where you scored lowest, plus every <span class="trap" style="display:inline">trap</span> line you got caught by.</p>
+
+<div class="callout ask">
+<p><strong>Ask Claude about anything unclear.</strong> For example: "Why is it P(Y &gt; y) for a min but P(Y ≤ y) for a max?", "How do I read the z-table backwards?", or "Walk me through practice set 1 Q5, the max of two different uniforms."</p>
+</div>
+
+<h3>Primary source</h3>
+<p>The instructor's <strong>practice sets 1–3</strong> (<a href="../Midterm_Practice_Problems_1_solutions.pdf">1</a>, <a href="../Midterm_Practice_Problems_2_solutions.pdf">2</a>, <a href="../Midterm_Practice_Problems_3_solutions.pdf">3</a>). They're the closest thing to Friday's exam, and the marks written in the margins show which steps score. After the mock, redo every practice-set question from your weakest topic on paper before you look at the solution.</p>
+</main>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/ztable.js"></script>
+<script src="../assets/timer.js"></script>
+</body>
+</html>

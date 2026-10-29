@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Targeted Drill</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+<nav class="crumbs">STAT 251 midterm · Lesson 0004 · <a href="0003-mock-midterm-weakness-finder.html">← 0003 Mock midterm</a> · <a href="../reference/formula-sheet.html">Formula sheet</a></nav>
+
+<h1>Fix the gaps the mock found</h1>
+<p class="subtitle">Poisson &amp; exponential, then transformations, then one more try at every other topic you missed</p>
+
+<p>Your mock gives a clear diagnosis. On the Poisson questions, you entered <strong>2</strong> twice. That was the right μ for Q22 and the right exponent for Q14. <em>You can already find the parameter.</em> You're missing only the last line, the formula that turns it into a probability. That's a small, fixable gap, and practice set 3 Q3 is worth 9 marks for exactly this. Transformations are similar: you had the method, but you lost the chain-rule factor at the end.</p>
+
+<h2>Part A · Poisson process: two questions, two formulas</h2>
+<p>Every Poisson-process question asks about one of two things. Decide which one <em>first</em>:</p>
+<table>
+<tr><th>The question asks about…</th><th>Random variable</th><th>Formula</th></tr>
+<tr><td><strong>How many</strong> events in a window of length t</td><td>X ~ Poisson(μ), with μ = λt</td><td>P(X = k) = e<sup>−μ</sup> μ<sup>k</sup> / k!</td></tr>
+<tr><td><strong>How long</strong> until the next event</td><td>T ~ Exp(λ)</td><td>P(T &gt; t) = e<sup>−λt</sup></td></tr>
+</table>
+<p>The patterns that come up most:</p>
+<p class="formula">P(none) = e<sup>−μ</sup> · P(at least 1) = 1 − e<sup>−μ</sup> · P(at most 1) = e<sup>−μ</sup>(1 + μ) · P(at least 2) = 1 − e<sup>−μ</sup>(1 + μ)</p>
+<p>E(X) = Var(X) = μ, so SD = √μ. For the Poisson approximation to Bin(n, p), with n large and p small, use μ = np. <span class="trap" style="display:inline">Units: convert the time into the rate's units <em>before</em> multiplying.</span> (Course notes <a href="../textBook_coursenotes.pdf#page=108">§6.4, p. 108</a>)</p>
+
+<div class="callout"><p>For every question below, write <strong>"X = …, X ~ …"</strong> before you calculate anything. That line is worth marks on its own.</p></div>
+
+<section class="q" data-topic="A · Poisson & exponential">
+  <div class="q-prompt">Emails arrive as a Poisson process at 4 per hour. Find P(no emails in the next 15 minutes).</div>
+  <div class="q-num" data-answer="0.3679" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>Let X = the number of emails in 15 min = 0.25 h, so X ~ Poisson(μ = 4 × 0.25 = 1).</p>
+    <p class="formula">P(X = 0) = e<sup>−1</sup> = <strong>0.3679</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="A · Poisson & exponential">
+  <div class="q-prompt">Same emails. Find P(exactly 3 emails in one hour).</div>
+  <div class="q-num" data-answer="0.1954" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>X ~ Poisson(4). P(X = 3) = e<sup>−4</sup> 4³ / 3! = 0.01832 × 64 / 6 = <strong>0.1954</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="A · Poisson & exponential">
+  <div class="q-prompt">Same emails. Find P(at least 2 emails in 30 minutes).</div>
+  <div class="q-num" data-answer="0.5940" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>X ~ Poisson(4 × 0.5 = 2). "At least 2" = 1 − P(0) − P(1):</p>
+    <p class="formula">1 − e<sup>−2</sup>(1 + 2) = 1 − 0.4060 = <strong>0.5940</strong></p>
+    <p>This is practice set 3 Q3(a) with different numbers. There, "method" earned 2 marks and the answer earned 1.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="A · Poisson & exponential">
+  <div class="q-prompt">An email just arrived. Find the probability that you wait more than 45 minutes for the next one.</div>
+  <div class="q-num" data-answer="0.0498" data-tol="0.0015"></div>
+  <div class="q-solution">
+    <p>This asks <em>how long</em>, so T ~ Exp(4) in hours. 45 min = 0.75 h.</p>
+    <p class="formula">P(T &gt; 0.75) = e<sup>−4(0.75)</sup> = e<sup>−3</sup> = <strong>0.0498</strong></p>
+    <p>You can also think of it this way: waiting more than 45 minutes means zero emails in 45 minutes, which is P(Poisson(3) = 0) = e<sup>−3</sup>. Both views give the same answer, so use whichever you remember.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="A · Poisson & exponential">
+  <div class="q-prompt">Find the median waiting time between emails, <strong>in minutes</strong>.</div>
+  <div class="q-num" data-answer="10.397" data-tol="0.05"></div>
+  <div class="q-solution">
+    <p>Set F(m) = 0.5: 1 − e<sup>−4m</sup> = 0.5 → e<sup>−4m</sup> = 0.5 → m = ln 2 / 4 = 0.1733 h = <strong>10.40 min</strong></p>
+    <p>This is the same three-mark pattern as practice set 1 Q3(b), the kangaroo rats.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="A · Poisson & exponential">
+  <div class="q-prompt">Find the <em>standard deviation</em> of the number of emails in a 2-hour period.</div>
+  <div class="q-num" data-answer="2.8284" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>W ~ Poisson(8), and E(W) = Var(W) = 8, so SD = √8 = <strong>2.828</strong>. This is practice set 3 Q3(c).</p>
+  </div>
+</section>
+
+<section class="q" data-topic="A · Poisson & exponential">
+  <div class="q-prompt">A light bulb is faulty with probability 0.002. Use the Poisson approximation to find P(exactly 2 faulty bulbs) in a box of 1000.</div>
+  <div class="q-num" data-answer="0.2707" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>X ~ Bin(1000, 0.002) ≈ Poisson(np = 2), since n is large and p is small.</p>
+    <p class="formula">P(X = 2) ≈ e<sup>−2</sup> 2² / 2! = 2e<sup>−2</sup> = <strong>0.2707</strong></p>
+  </div>
+</section>
+
+<h2>Part B · Transformations: go through F, then use the chain rule</h2>
+<ol class="steps">
+  <li>Find F<sub>Y</sub>(y) from f(y).</li>
+  <li>Write G(u) = P(U ≤ u) and rearrange the inside until you have Y ≤ (something in u).</li>
+  <li>Substitute that "something" into F<sub>Y</sub>.</li>
+  <li>Differentiate to get g(u) = G′(u). <strong>Use the chain rule:</strong> differentiating ((u+1)/4)² gives 2 · (u+1)/4 · <em>1/4</em>. That 1/4 is the factor you dropped on the mock.</li>
+  <li>Find the new support by putting the endpoints of y into U. As a free check, the new density's area must be 1.</li>
+</ol>
+<p><strong>Shortcut for E and Var:</strong> if U = aY + b, then E(U) = aE(Y) + b and Var(U) = a²Var(Y). You don't need g(u) for these.</p>
+
+<section class="q" data-topic="B · Transformations">
+  <div class="q-prompt">Y has f(y) = 3y² for 0 ≤ y ≤ 1. Let U = 2Y + 1. Find P(U ≤ 2).</div>
+  <div class="q-num" data-answer="0.125" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>F<sub>Y</sub>(y) = y³. P(2Y + 1 ≤ 2) = P(Y ≤ 0.5) = 0.5³ = <strong>0.125</strong></p>
+    <p>That's steps 1–3. Often you never need the density of U at all.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="B · Transformations">
+  <div class="q-prompt">Same Y and U = 2Y + 1. Which is the density of U?</div>
+  <ol class="q-opts">
+    <li>3(u−1)²/2 on 1 ≤ u ≤ 3</li>
+    <li data-correct>3(u−1)²/8 on 1 ≤ u ≤ 3</li>
+    <li>3(u−1)²/8 on 0 ≤ u ≤ 1</li>
+    <li>((u−1)/2)³ on 1 ≤ u ≤ 3</li>
+  </ol>
+  <div class="q-solution">
+    <p class="formula">G(u) = P(Y ≤ (u−1)/2) = ((u−1)/2)³</p>
+    <p class="formula">g(u) = 3((u−1)/2)² · <strong>½</strong> = 3(u−1)²/8, on 1 ≤ u ≤ 3</p>
+    <p>A forgets the chain-rule ½: its area is 4, not 1. C has the wrong support, since y ∈ [0, 1] maps to u ∈ [1, 3]. D is G, not g.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="B · Transformations">
+  <div class="q-prompt">Same Y and U = 2Y + 1. Find E(U).</div>
+  <div class="q-num" data-answer="2.5" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>E(Y) = ∫₀¹ y · 3y² dy = 3/4. E(U) = 2(3/4) + 1 = <strong>2.5</strong></p>
+    <p class="trap">E(Y) = ∫ y f(y) dy. Multiply by y <em>first</em>, then integrate. Integrating f(y) on its own just gives 1.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="B · Transformations">
+  <div class="q-prompt">Same Y and U = 2Y + 1. Find Var(U).</div>
+  <div class="q-num" data-answer="0.15" data-tol="0.003"></div>
+  <div class="q-solution">
+    <p>E(Y²) = ∫₀¹ y² · 3y² dy = 3/5. Var(Y) = 0.6 − 0.75² = 0.0375.</p>
+    <p class="formula">Var(U) = 2² × 0.0375 = <strong>0.15</strong>. The +1 has no effect on the variance.</p>
+  </div>
+</section>
+
+<h2>Part C · One more try at everything else you missed</h2>
+<p>These are the same ideas as your other misses, with new numbers. If you get one right this time, that topic is fixed.</p>
+
+<section class="q" data-topic="C · Bayes & total prob">
+  <div class="q-prompt">60% of a company's email goes through server X and 40% through server Y. Spam rates are 10% on X and 25% on Y. Find P(an email is spam).</div>
+  <div class="q-num" data-answer="0.16" data-tol="0.002"></div>
+  <div class="q-solution">
+    <p>Let S = the email is spam. P(S) = 0.1(0.6) + 0.25(0.4) = 0.06 + 0.10 = <strong>0.16</strong></p>
+    <p>Write each product on its own line before adding. That catches arithmetic slips like 0.026 vs 0.029 on the mock.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="C · Bayes & total prob">
+  <div class="q-prompt">Same company. An email is spam. Find the probability that it went through server Y.</div>
+  <div class="q-num" data-answer="0.625" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p class="formula">P(Y|S) = P(S|Y)P(Y) / <strong>P(S)</strong> = 0.10 / 0.16 = <strong>0.625</strong></p>
+    <p class="trap">On the mock you stopped at the numerator (0.01). Bayes always divides by the total from the step before. The answer to a Bayes question is never smaller than its numerator.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="C · Normal">
+  <div class="q-prompt">X ~ N(100, 25). Find P(X &lt; 93).</div>
+  <div class="q-num" data-answer="0.0808" data-tol="0.0015"></div>
+  <div class="q-solution">
+    <p>σ = √25 = 5. z = (93 − 100)/5 = −1.4.</p>
+    <p class="formula">P(Z &lt; −1.4) = 1 − P(Z &lt; 1.4) = 1 − 0.9192 = <strong>0.0808</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="C · Normal">
+  <div class="q-prompt">Same X ~ N(100, 25). Find P(92 &lt; X &lt; 105).</div>
+  <div class="q-num" data-answer="0.7865" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>z-values: −1.6 and 1. P(Z &lt; 1) − P(Z &lt; −1.6) = 0.8413 − (1 − 0.9452) = <strong>0.7865</strong></p>
+    <p>Sketch the bell curve and shade the region every time. It takes 5 seconds and catches sign errors.</p>
+  </div>
+</section>
+
+<section class="q" data-topic="C · Normal → binomial">
+  <div class="q-prompt">From the previous question but one, P(X &lt; 93) = 0.0808 for one item. Five items are tested independently. Find P(at least one has X &lt; 93).</div>
+  <div class="q-num" data-answer="0.3438" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>Let W be the number (out of 5) with X &lt; 93, so W ~ Bin(5, 0.0808).</p>
+    <p class="formula">P(W ≥ 1) = 1 − (0.9192)⁵ = <strong>0.3438</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="C · Sums & averages">
+  <div class="q-prompt">A bag of sand has mean weight 20 kg and SD 0.5 kg. Find the SD of the total weight of 9 independent bags.</div>
+  <ol class="q-opts">
+    <li>4.5 kg</li>
+    <li>2.25 kg</li>
+    <li data-correct>1.5 kg</li>
+    <li>0.17 kg</li>
+  </ol>
+  <div class="q-solution">
+    <p>Var(total) = 9 × 0.5² = 2.25, so SD = √2.25 = <strong>1.5 kg</strong>. 4.5 comes from adding SDs (the mock trap), 2.25 is the variance, and 0.17 is the SD of the <em>average</em> (0.5/√9).</p>
+  </div>
+</section>
+
+<section class="q" data-topic="C · Max / min">
+  <div class="q-prompt">Two independent parts have exponential lifetimes with rate 0.2 per year. In <em>series</em> (the system dies when either part dies), find P(system lasts more than 2 years).</div>
+  <div class="q-num" data-answer="0.4493" data-tol="0.005"></div>
+  <div class="q-solution">
+    <p>Series → min. P(min &gt; 2) = P(both &gt; 2) = (e<sup>−0.4</sup>)² = e<sup>−0.8</sup> = <strong>0.4493</strong></p>
+  </div>
+</section>
+
+<section class="q" data-topic="C · Max / min">
+  <div class="q-prompt">The same two parts in <em>parallel</em> (the system dies only when both are dead). Find P(the system dies within 2 years).</div>
+  <div class="q-num" data-answer="0.1087" data-tol="0.003"></div>
+  <div class="q-solution">
+    <p>Parallel → max. P(max ≤ 2) = P(both ≤ 2) = (1 − e<sup>−0.4</sup>)² = 0.3297² = <strong>0.1087</strong></p>
+    <p>Memory hook: <strong>series = min = P(&gt;)</strong>, <strong>parallel = max = P(≤)</strong>.</p>
+  </div>
+</section>
+
+<div id="scoreboard" class="scoreboard" data-quiz="0004-poisson-transformations-drill"></div>
+
+<hr>
+
+<h2>Lock it in (tomorrow, Oct 29)</h2>
+<ol class="steps">
+  <li>Start with a blank page and no notes. Write the Poisson table from Part A and the five-step transformation recipe from memory. Then check them against this page.</li>
+  <li>Redo <strong>practice set 3 Q3</strong> (aircraft, Poisson process) and <strong>practice set 2 Q2</strong> (U = 3Y − 1) without looking at the solutions. Then mark yourself using the marks written in the margins.</li>
+  <li>Write your handwritten cheat sheet, starting from the <a href="../reference/formula-sheet.html">template</a>. Give the most space to Part A's table, the transformation recipe, the Bayes "divide by the total" line, and "add variances, not SDs".</li>
+</ol>
+
+<div class="callout ask">
+<p><strong>Ask Claude about anything unclear.</strong> For example: "Why does waiting more than t mean zero events in time t?", "Show me practice set 1 Q5 step by step", or "Quiz me on Poisson without the page in front of me."</p>
+</div>
+
+<h3>Primary source</h3>
+<p>Course notes <strong>§6.4 Poisson process, p. 108</strong> (<a href="../textBook_coursenotes.pdf#page=108">open</a>) and the worked <a href="../Chapter6Solutions.pdf">Chapter 6 solutions</a>. Then use <a href="../Midterm_Practice_Problems_3_solutions.pdf">practice set 3</a> Q3 as your exam-style check.</p>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

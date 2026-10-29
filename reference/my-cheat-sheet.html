@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Cheat Sheet</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="sheet onepage">
+<main>
+<nav class="crumbs no-print">STAT 251 midterm · Reference · <a href="formula-sheet.html">Full formula sheet</a> · <a href="../lessons/0004-poisson-transformations-drill.html">Lesson 0004</a> · <a href="../lessons/0003-mock-midterm-weakness-finder.html">Lesson 0003 mock</a></nav>
+
+<h1>My cheat sheet <span class="muted" style="font-size:1rem">· one side · handwritten</span></h1>
+
+<div class="callout no-print">
+<p><strong>How to use this page (about 45 minutes)</strong></p>
+<ol class="steps">
+  <li><strong>Copy it by hand onto one side of a sheet of paper.</strong> The rules say it has to be handwritten by you. Writing it out is also your last good study session before the exam, so take it slowly.</li>
+  <li>Boxes marked <span class="prio big">WRITE BIG</span> are the topics you missed on the mock. Give them the most room, and include the mini-example. Boxes marked <span class="prio small">SHRINK</span> are topics you already got right, so a line or two is enough.</li>
+  <li>Before you copy each box, <strong>try to write it from memory first</strong>, then check it against this page and fix it in a different colour. Anything you had to fix is exactly what the sheet is for.</li>
+  <li>Layout: draw a line down the middle of the page. Left column = the first four boxes, right column = the rest. Put Poisson in the top-left, where your eye goes first.</li>
+</ol>
+</div>
+
+<div class="cols">
+
+<div class="block big">
+<h2>Poisson process <span class="prio big">WRITE BIG · you got 0/3</span></h2>
+<p>Rate λ per unit time. <strong>First ask: is it HOW MANY or HOW LONG?</strong> Convert the time units first (20 min = 1/3 h).</p>
+<div class="formula">HOW MANY in time t:  X ~ Poisson(μ = λt)
+   P(X = k) = e^(−μ) μ^k / k!     E = Var = μ,  SD = √μ
+   P(0) = e^(−μ)
+   P(≥1) = 1 − e^(−μ)
+   P(≤1) = e^(−μ)(1 + μ)
+   P(≥2) = 1 − e^(−μ)(1 + μ)
+HOW LONG until next:  T ~ Exp(λ)
+   P(T > t) = e^(−λt)     F(t) = 1 − e^(−λt)
+   E = 1/λ    median = ln2 / λ
+Poisson approx to Bin(n,p): n big, p small → μ = np</div>
+<p><em>Example:</em> 8 aircraft/h. P(≥2 in 1 h) = 1 − e⁻⁸(1+8) = 0.997. Wait &gt; 20 min: e^(−8·⅓) = 0.0695.</p>
+<p class="trap">Finding μ is not the answer. Put μ into the formula.</p>
+</div>
+
+<div class="block big">
+<h2>Transformation U = g(Y) <span class="prio big">WRITE BIG · you got 0/2</span></h2>
+<div class="formula">1. F_Y(y) = ∫ f
+2. G(u) = P(U ≤ u) → rearrange to P(Y ≤ ___)
+3. G(u) = F_Y(___)
+4. g(u) = G′(u)   ← CHAIN RULE: × (derivative of ___)
+5. Support: put the y endpoints into U
+CHECK: ∫ g(u) du = 1</div>
+<p><em>Example:</em> f = 2y on [0,1], U = 4Y − 1. G = ((u+1)/4)² → g = 2·(u+1)/4·<strong>¼</strong> = (u+1)/8 on [−1, 3].</p>
+<div class="formula">E(aY + b) = a·E(Y) + b     Var(aY + b) = a²·Var(Y)</div>
+<p class="trap">E(Y) = ∫ <strong>y</strong>·f(y) dy. Multiply by y first.</p>
+</div>
+
+<div class="block big">
+<h2>Bayes / total probability <span class="prio big">WRITE BIG</span></h2>
+<div class="formula">P(D) = P(D|A)P(A) + P(D|B)P(B) + P(D|C)P(C)
+P(C|D) = P(D|C)P(C) / P(D)    ← DIVIDE by P(D)!</div>
+<p>Write each product on its own line, then add them. Define the events in words first (that earns a mark).</p>
+<div class="formula">P(A∪B) = P(A) + P(B) − P(A∩B)    P(A|B) = P(A∩B)/P(B)
+Indep: P(A∩B) = P(A)P(B)   Disjoint: P(A∩B) = 0
+pmf conditional: P(X≤3 | X≥1) = P(1≤X≤3)/P(X≥1)</div>
+</div>
+
+<div class="block big">
+<h2>Sums, max, min <span class="prio big">WRITE BIG</span></h2>
+<div class="formula">Var(aX ± bY) = a²Var X + b²Var Y   (indep.)  ← always +
+Total of n: E = nμ,  Var = nσ²,  SD = σ√n
+Average of n: E = μ,  SD = σ/√n
+ADD VARIANCES, NOT SDs.
+SERIES   = min = use P(>): P(min > t) = P(X₁>t)P(X₂>t)…
+PARALLEL = max = use P(≤): P(max ≤ t) = F₁(t)F₂(t)…</div>
+<p>For two different uniforms, F_max is piecewise: write it out on each interval (practice set 1 Q5).</p>
+</div>
+
+<div class="block">
+<h2>Normal</h2>
+<div class="formula">N(μ, σ²): 2nd number = VARIANCE → σ = √
+z = (x − μ)/σ      P(Z < −z) = 1 − P(Z < z)
+P(a<X<b) = Φ(z_b) − Φ(z_a)       ← sketch + shade!
+|X − c| < d  ⇔  c−d < X < c+d
+Inverse: find the prob INSIDE the table → x = μ + zσ
+upper 20% 10% 5% 2.5% 1%  →  z 0.84 1.28 1.645 1.96 2.33</div>
+<p><strong>Chain:</strong> p = normal prob → Y ~ Bin(n, p) → P(≥1) = 1 − (1−p)ⁿ</p>
+<p>Normal approx to Bin (maybe): μ = np, σ² = np(1−p); P(X ≤ k) → k + 0.5</p>
+</div>
+
+<div class="block">
+<h2>Density → F <span class="prio small">MOSTLY OK</span></h2>
+<div class="formula">∫ f = 1 → find k       F(x) = ∫ from start to x
+P(X > a) = 1 − F(a)      median: F(m) = 0.5
+Var = E(X²) − E(X)²      check F(end) = 1
+Uniform(a,b): F = (x−a)/(b−a)</div>
+<p class="trap">F(x) = ∫ f. Integrate before you plug in numbers (Q8).</p>
+</div>
+
+<div class="block">
+<h2>Binomial · geometric <span class="prio small">SHRINK</span></h2>
+<div class="formula">Bin: C(n,k) p^k (1−p)^(n−k)   E = np  Var = np(1−p)
+Geo: P(first in year k) = (1−p)^(k−1) p   return period = 1/p
+P(≥1 in n yrs) = 1 − (1−p)ⁿ</div>
+</div>
+
+<div class="block">
+<h2>Ch 1 <span class="prio small">SHRINK</span></h2>
+<p>Right tail → mean &gt; median. y = a + bx: SD × |b|, and adding a doesn't change it. IQR = Q3 − Q1.</p>
+</div>
+
+<div class="block">
+<h2>Every question</h2>
+<p>① X = … (in words) ② X ~ Dist(params) ③ formula → numbers ④ support ⑤ answer in a sentence</p>
+</div>
+
+</div>
+
+<div class="callout ask no-print">
+<p><strong>Ask Claude about anything unclear.</strong> Once you've written your sheet, try saying "quiz me using only my cheat sheet". I'll give you exam-style questions in chat, and you can check whether the sheet has everything you need.</p>
+</div>
+<p class="muted no-print">Built from your mock results (<a href="../lessons/0003-mock-midterm-weakness-finder.html">0003</a>) and the instructor's practice sets 1–3. For anything not on here, see the <a href="formula-sheet.html">full formula sheet</a>.</p>
+</main>
+</body>
+</html>
